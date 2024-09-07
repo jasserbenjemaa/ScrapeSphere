@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 
-const url = "https://www.joshwcomeau.com/";
+const url = "https://swizec.com/blog/";
 
 const main = async () => {
   try {
@@ -9,13 +9,21 @@ const main = async () => {
     await page.goto(url);
     console.log("Page loaded successfully");
     const allArticles = await page.evaluate(() => {
-      const articles = document.querySelectorAll("article");
+      const articles = document.querySelectorAll("div.css-zo9vbf");
       return Array.from(articles)
-        .slice(0, 3)
+        .slice(0, 4)
         .map((article) => {
-          const title = article.querySelector("h3").innerText;
+          const title = article.querySelector("h2").innerText;
           const url = article.querySelector("a").href;
-          return { title, url };
+          const text = article.querySelector("p").innerText;
+          return {
+            title,
+            url,
+            author: "Swizec",
+            image:
+              "https://swizec.com/favicon-32x32.png?v=32813dbeb138b475a5f408f511991f65",
+            text,
+          };
         });
     });
     console.log(allArticles);
@@ -27,4 +35,4 @@ const main = async () => {
   }
 };
 
-main();
+export default main();
