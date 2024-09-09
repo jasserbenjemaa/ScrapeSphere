@@ -2,12 +2,11 @@ import puppeteer from "puppeteer";
 
 const url = "https://swizec.com/blog/";
 
-const main = async () => {
+const swizec = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
-    console.log("Page loaded successfully");
     const allArticles = await page.evaluate(() => {
       const articles = document.querySelectorAll("div.css-zo9vbf");
       return Array.from(articles)
@@ -26,13 +25,12 @@ const main = async () => {
           };
         });
     });
-    console.log(allArticles);
 
     await browser.close();
-    console.log(" browser closed");
+    return allArticles;
   } catch (error) {
     console.error("Error connecting to the browser:", error);
   }
 };
 
-export default main();
+export default swizec;

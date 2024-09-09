@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 
 const url = "https://www.joshwcomeau.com/";
 
-const main = async () => {
+const josh = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -13,9 +13,15 @@ const main = async () => {
       return Array.from(articles)
         .slice(0, 4)
         .map((article) => {
-          const title = article.querySelector("h3").innerText;
-          const url = article.querySelector("a").href;
-          const text = article.querySelector("p").innerText;
+          const title = article.querySelector("h3")
+            ? article.querySelector("h3").innerText
+            : "no title";
+          const url = article.querySelector("a")
+            ? article.querySelector("a").href
+            : "no url";
+          const text = article.querySelector("p")
+            ? article.querySelector("p").innerText
+            : "no text";
           return {
             title,
             url,
@@ -25,13 +31,12 @@ const main = async () => {
           };
         });
     });
-    console.log(allArticles);
 
     await browser.close();
-    console.log(" browser closed");
+    return allArticles;
   } catch (error) {
     console.error("Error connecting to the browser:", error);
   }
 };
 
-export default main();
+export default josh;

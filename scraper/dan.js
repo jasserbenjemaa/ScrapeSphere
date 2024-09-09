@@ -1,11 +1,11 @@
 import puppeteer from "puppeteer";
-(async () => {
+const dan = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   await page.goto("https://overreacted.io/");
 
-  const data = await page.evaluate(() => {
+  const allArticles = await page.evaluate(() => {
     const articles = document.querySelectorAll("a.block");
 
     return Array.from(articles)
@@ -21,6 +21,7 @@ import puppeteer from "puppeteer";
       });
   });
 
-  console.log(data); // Output the scraped data
   await browser.close();
-})();
+  return allArticles;
+};
+export default dan;

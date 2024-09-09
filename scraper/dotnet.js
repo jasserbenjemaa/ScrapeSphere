@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 
 const url = "https://devblogs.microsoft.com/dotnet/";
 
-const main = async () => {
+const dotnet = async () => {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -17,6 +17,7 @@ const main = async () => {
           const url = article.querySelector("h3 a").href;
           const text = article.querySelector("p.mb-24").innerText;
           const author = article.querySelector("span.fs-14").innerText;
+          const bgImage = article.querySelector("img").getAttribute("src");
           const image = article
             .querySelector("img.avatar-20")
             .getAttribute("src");
@@ -26,16 +27,16 @@ const main = async () => {
             text,
             author,
             image,
+            bgImage,
           };
         });
     });
-    console.log(allArticles);
 
     await browser.close();
-    console.log(" browser closed");
+    return allArticles;
   } catch (error) {
     console.error("Error connecting to the browser:", error);
   }
 };
 
-export default main();
+export default dotnet;
