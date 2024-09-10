@@ -13,8 +13,8 @@ const josh = async () => {
       return Array.from(articles)
         .slice(0, 4)
         .map((article) => {
-          const title = article.querySelector("h3")
-            ? article.querySelector("h3").innerText
+          const title = article.querySelector("span")
+            ? article.querySelector("span").innerText
             : "no title";
           const url = article.querySelector("a")
             ? article.querySelector("a").href
