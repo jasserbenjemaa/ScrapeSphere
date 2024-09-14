@@ -1,0 +1,10 @@
+.App {
+}
+.container {
+  width: 100vw;
+  padding: 0 15rem 0 15rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 3rem;
+}
